@@ -29,10 +29,12 @@ if working_model is None:
      exit()
 
 
-history=[]
-
+print("=" * 45)
 print("AI ASSIST BOT")
+print("=" * 45)
 print("(type 'exit' to quit) \n")
+history=[]
+question_count=0
 system_prompt = """
 You are a helpful AI tutor.
 
@@ -50,6 +52,8 @@ while True:
          continue
     if user.lower()=="exit":
         break
+    question_count+=1
+    history=history[-20:]
     history.append(f"User: {user}")
     prompt=system_prompt+"\n\n"+"\n".join(history)
     full_response=""
@@ -67,8 +71,11 @@ while True:
         print("\n")              
 
         history.append(f"Assistant: {full_response}")
+
     except Exception as e:
          print(f"Error : {e}")
          continue
+
+print(f"Questions Asked : {question_count}")
 
 print("Thanks for Chatting! 😊")
