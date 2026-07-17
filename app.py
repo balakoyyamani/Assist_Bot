@@ -2,9 +2,13 @@ from google import genai
 import os
 
 api=os.getenv("GOOGLE_API_KEY_ASSIST_BOT_02")
-client=genai.Client(api_key=api)
+if api:
+     print("API KEY LOADED🥳")
+else:
+     print("API KEY IS NOT LOADED😢")
+     exit()
 
-print(f"API KEY : {api}")
+client=genai.Client(api_key=api)
 
 working_model=None
 
