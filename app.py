@@ -29,21 +29,35 @@ history=[]
 
 print("AI ASSIST BOT")
 print("(type 'exit' to quit) \n")
+system_prompt = """
+You are a helpful AI tutor.
+
+Explain everything simply.
+
+Always use examples.
+
+Keep answers concise.
+"""
 
 while True:
     user=input("user : ")
     if user.lower()=="exit":
         break
     history.append(f"User: {user}")
-    prompt="\n".join(history)
-
-    response=client.models.generate_content(
+    prompt=system_prompt+"\n\n"+"\n".join(history)
+    full_response=""
+    print("AI Bot : ",end="",flush=True)
+    stream=client.models.generate_content_stream(
         model=working_model,
         contents=prompt
     )
 
-    answer=response.text
+    for chunk in stream:
+         if chunk.text:
+              print(chunk.text,end="",flush=True)
+              full_response+=chunk.text
+    print("\n")              
 
-    print(f"AI Bot: {answer}")
+    history.append(f"Assistant: {full_response}")
 
-    history.append(f"Assistant: {answer}")
+print("Thanks for Chatting! 😊")
