@@ -1,7 +1,7 @@
 from google import genai
 import os
 
-api=os.getenv("GOOGLE_API_KEY_ASSIST_BOT")
+api=os.getenv("GOOGLE_API_KEY_ASSIST_BOT_02")
 client=genai.Client(api_key=api)
 
 print(api)
