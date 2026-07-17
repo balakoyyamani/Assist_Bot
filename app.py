@@ -77,14 +77,13 @@ while True:
         print("\n")              
 
         history.append(f"Assistant: {full_response}")
+        with open("history.json","w") as file:
+            json.dump(history,file,indent=4)
 
     except Exception as e:
          print(f"Error : {e}")
          continue
 
-with open("history.json","w") as file:
-     json.dump(history,file,indent=4)
-     file.close()
 print(f"Questions Asked : {question_count}")
 
 print("Thanks for Chatting! 😊")
