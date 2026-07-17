@@ -44,24 +44,31 @@ Keep answers concise.
 """
 
 while True:
-    user=input("user : ")
+    user=input("user : ").strip()
+    if not user:
+         print("Enter the Message :")
+         continue
     if user.lower()=="exit":
         break
     history.append(f"User: {user}")
     prompt=system_prompt+"\n\n"+"\n".join(history)
     full_response=""
     print("AI Bot : ",end="",flush=True)
-    stream=client.models.generate_content_stream(
-        model=working_model,
-        contents=prompt
-    )
+    try:
+        stream=client.models.generate_content_stream(
+            model=working_model,
+            contents=prompt
+            )
 
-    for chunk in stream:
-         if chunk.text:
-              print(chunk.text,end="",flush=True)
-              full_response+=chunk.text
-    print("\n")              
+        for chunk in stream:
+            if chunk.text:
+                print(chunk.text,end="",flush=True)
+                full_response+=chunk.text
+        print("\n")              
 
-    history.append(f"Assistant: {full_response}")
+        history.append(f"Assistant: {full_response}")
+    except Exception as e:
+         print(f"Error : {e}")
+         continue
 
 print("Thanks for Chatting! 😊")
