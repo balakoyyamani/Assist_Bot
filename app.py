@@ -58,6 +58,17 @@ while True:
          continue
     if user.lower()=="exit":
         break
+
+    if user=="/clear":
+         history=[]
+         with open("history.json","w") as file:
+            json.dump([],file)
+         print("Conversation history cleared.")
+         continue
+    if user=="/history":
+         for msg in history:
+              print(f"\n{msg}")
+         continue
     question_count+=1
     history=history[-20:]
     history.append(f"User: {user}")
