@@ -1,5 +1,6 @@
 from google import genai
 import os
+import json
 
 api=os.getenv("GOOGLE_API_KEY_ASSIST_BOT_02")
 if api:
@@ -33,7 +34,12 @@ print("=" * 45)
 print("AI ASSIST BOT")
 print("=" * 45)
 print("(type 'exit' to quit) \n")
-history=[]
+if(not os.path.exists("history.json")):
+     with open("history.json","w") as file:
+        json.dump([],file)
+with open("history.json","r") as file:
+     history=json.load(file)
+     
 question_count=0
 system_prompt = """
 You are a helpful AI tutor.
@@ -76,6 +82,9 @@ while True:
          print(f"Error : {e}")
          continue
 
+with open("history.json","w") as file:
+     json.dump(history,file,indent=4)
+     file.close()
 print(f"Questions Asked : {question_count}")
 
 print("Thanks for Chatting! 😊")
