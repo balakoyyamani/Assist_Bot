@@ -1,100 +1,26 @@
-from google import genai
-import os
-import json
+from config import get_working_model
+from chat import chat
+from history import load_history,save_history,clear_history
 
-api=os.getenv("GOOGLE_API_KEY_ASSIST_BOT_02")
-if api:
-     print("API KEY LOADED🥳")
-else:
-     print("API KEY IS NOT LOADED😢")
-     exit()
-
-client=genai.Client(api_key=api)
-
-working_model=None
-
-for model in client.models.list():
-    model_name=model.name.replace("models/","")
-    try:
-        client.models.generate_content(
-        model=model_name,
-        contents="Hello")
-        working_model=model_name
-        print(f"Working Modl : {model_name}")
-        break
-    except Exception:
-            continue
-    
-if working_model is None:
-     print("There is no Working model available now")
-     exit()
-
+model=get_working_model()
+history=load_history()
 
 print("=" * 45)
-print("AI ASSIST BOT")
+print("AI ASSIST TUTOR")
 print("=" * 45)
-print("(type 'exit' to quit) \n")
-if(not os.path.exists("history.json")):
-     with open("history.json","w") as file:
-        json.dump([],file)
-with open("history.json","r") as file:
-     history=json.load(file)
-     
-question_count=0
-system_prompt = """
-You are a helpful AI tutor.
-
-Explain everything simply.
-
-Always use examples.
-
-Keep answers concise.
-"""
 
 while True:
-    user=input("user : ").strip()
+    user=input("User : ").strip()
     if not user:
-         print("Enter the Message :")
-         continue
-    if user.lower()=="exit":
+        print("Enter the Message")
+        continue
+    if user=="exit":
         break
-
     if user=="/clear":
-         history=[]
-         with open("history.json","w") as file:
-            json.dump([],file)
-         print("Conversation history cleared.")
-         continue
-    if user=="/history":
-         for msg in history:
-              print(f"\n{msg}")
-         continue
-    question_count+=1
-    history=history[-20:]
-    history.append(f"User: {user}")
-    prompt=system_prompt+"\n\n"+"\n".join(history)
-    full_response=""
-    print("AI Bot : ",end="",flush=True)
-    try:
-        stream=client.models.generate_content_stream(
-            model=working_model,
-            contents=prompt
-            )
-
-        for chunk in stream:
-            if chunk.text:
-                print(chunk.text,end="",flush=True)
-                full_response+=chunk.text
-        print("\n")              
-
-        history.append(f"Assistant: {full_response}")
-        with open("history.json","w") as file:
-            json.dump(history,file,indent=4)
-
-    except Exception as e:
-         print(f"Error : {e}")
-         continue
-
-print(f"Questions Asked : {question_count}")
-
-print("Thanks for Chatting! 😊")
+        clear_history()
+        print("Memory are deleted 😎")
+        continue
+    history=chat(model,history,user)
+    save_history(history)
+    
+print("Thanks You 😊")
