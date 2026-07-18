@@ -20,6 +20,20 @@ while True:
         clear_history()
         print("Memory are deleted 😎")
         continue
+    if user=="/history":
+          print("HISTORY")
+          print("=" *45+"\n")
+          for data in load_history():
+               print(data)
+               print("\n"+"_"*100+"\n")
+          continue
+    if user=="/help":
+        print(""" 
+              'exit' : to quit the chat. 
+              '/clear' : to delete all history. 
+              '/history' : to display the history. 
+              '/help' : to see available commands""")
+        continue
     history=chat(model,history,user)
     save_history(history)
     
