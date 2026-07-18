@@ -1,7 +1,13 @@
 from config import client
 
-system_prompt="""You are a helpful AI tutor.
-                Explain everything simply."""
+system_prompt="""You are AssistBot.
+                Rules:
+                - Explain simply.
+                - Use bullet points.
+                - Give examples.
+                - Answer in Markdown.
+                - If unsure, say you don't know.
+                - Never invent facts."""
 
 def chat(model,history,user_msg):
     history=history[-20:]
