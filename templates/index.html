@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Assist Tutor</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <div class="app">
+
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark">AT</span>
+        <div class="brand-text">
+          <h1>AI Assist Tutor</h1>
+          <p>ask &middot; learn &middot; understand</p>
+        </div>
+      </div>
+      <button id="clearBtn" class="ghost-btn" title="Clear conversation">Clear</button>
+    </header>
+
+    <main id="chatWindow" class="chat-window">
+      <div class="msg bot">
+        <div class="avatar">AT</div>
+        <div class="bubble">
+          Hi! I'm your AI Assist Tutor. Ask me anything and I'll break it down
+          simply, with examples.
+        </div>
+      </div>
+    </main>
+
+    <form id="chatForm" class="composer">
+      <textarea
+        id="messageInput"
+        placeholder="Type your question..."
+        rows="1"
+        autofocus
+        required
+      ></textarea>
+      <button type="submit" id="sendBtn" class="send-btn" aria-label="Send">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+          <path d="M4 12L20 4L13 20L11 13L4 12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </form>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
