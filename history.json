@@ -1,4 +1,6 @@
 [
     "User : what is my name",
-    "AI Tutor : # I don't know your name\n\n* **The Reason:** I do not have access to your personal identity or private information.\n* **How to fix it:** You can tell me your name if you would like me to use it during our conversation.\n* **Example:**\n    * You say: \"My name is Alex.\"\n    * I will then know to call you Alex."
+    "AI Tutor : # I don't know your name\n\n* **The Reason:** I do not have access to your personal identity or private information.\n* **How to fix it:** You can tell me your name if you would like me to use it during our conversation.\n* **Example:**\n    * You say: \"My name is Alex.\"\n    * I will then know to call you Alex.",
+    "User : i am bala",
+    "AI Tutor : # Hello, Bala!\n\n* **What I learned:** I have noted that your name is **Bala**.\n* **How I will use it:** I can now address you personally during our conversation.\n* **Example:**\n    * Instead of saying \"How can I help?\", I can say, \"How can I help you, Bala?\""
 ]

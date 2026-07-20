@@ -14,6 +14,7 @@ from flask import Flask, render_template, request, jsonify
 from config import get_working_model
 from chat import chat
 from history import load_history, save_history, clear_history
+import json
 
 app = Flask(__name__)
 
@@ -53,6 +54,11 @@ def clear_endpoint():
     clear_history()
     history = []
     return jsonify({"status": "cleared"})
+
+@app.route("/history")
+def get_history():
+    data=load_history()
+    return data
 
 
 if __name__ == "__main__":
